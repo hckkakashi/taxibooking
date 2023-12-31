@@ -101,6 +101,7 @@ class regpage:
                         self.enter_4.get(), self.enter_5.get(),self.var_pay.get())
                 cursor.execute(query, data)
             self._connection_.commit()
+
             messagebox.showinfo("Taxi", "Registration Successful")
             self.window.destroy()
             new_window = Tk()

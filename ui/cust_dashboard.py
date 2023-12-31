@@ -12,16 +12,16 @@ import superuser
 class customers:
     def __init__(self, window):
         self._connection_=connection.mysql_conecton.Conect()
-        self.master = window
-        self.master.title("Taxi Booking Dashboard")
-        self.master.geometry("720x428")
-        self.master.configure(bg="gray")
+        self.window = window
+        self.window.title("Taxi Booking Dashboard")
+        self.window.geometry("720x428")
+        self.window.configure(bg="gray")
         self.bookid = StringVar()
         self.booking_id=Entry(textvariable=self.bookid)
 
         # Initialize database
         # self.conn = sqlite3.connect('taxi_booking.db')
-        self.lbl=Label(self.master,text="BOOK NOW",fg="white",bg="gray",font=("Times", 55 ,"bold"))
+        self.lbl=Label(self.window, text="BOOK NOW", fg="white", bg="gray", font=("Times", 55 , "bold"))
         self.lbl.place(x=160,y=5)
 
         # Create GUI components
@@ -32,11 +32,12 @@ class customers:
         self.entry_to = Entry(window)
 
         self.label_dob = Label(window, text="Date:", fg="white", bg="gray")
-        self.calander_bttn = DateEntry(self.master, text="Pick Date")
+        self.calander_bttn = DateEntry(self.window, text="Pick Date")
 
         self.button_book = Button(window, text="Book Taxi", command=self.book_taxi)
         self.button_view = Button(window, text="View Bookings", command=self.view_bookings)
         self.button_update = Button(window, text="Update",command=self.update_bookings)
+        self.button_log = Button(window, text="Log Out", command=self.logout)
 
         self.label_from.place(x=10, y=110)
         self.entry_from.place(x=80, y=110)
@@ -47,6 +48,7 @@ class customers:
         self.button_book.place(x=230, y=110)
         self.button_view.place(x=230, y=170)
         self.button_update.place(x=230, y=140)
+        self.button_log.place(x=290, y=140)
 
         # Create a frame for the Treeview
         self.tree_frame = ttk.Frame(window)
@@ -126,6 +128,7 @@ class customers:
         try:
             with self._connection_.cursor() as cursor:
                 query = f"UPDATE bookings SET  `from_location`='{self.entry_from.get()}', `to_location`='{self.entry_to.get()}', `date_booking`='{self.calander_bttn.get_date()}' WHERE `booking_id`={self.bookid.get()}"
+
                 cursor.execute(query)
             # Commit the transaction
             self._connection_.commit()
@@ -134,6 +137,13 @@ class customers:
         except mysql.connector.Error as err:
             print(f"Error: {err}")
             messagebox.showerror("Taxi", f"Update Failure: {err}")
+
+    def logout(self):
+        from login import (LoginPage)
+        self.window.destroy()
+        new_window = Tk()
+        LoginPage(new_window)
+        new_window.mainloop()
 if __name__ == "__main__":
     root = tk.Tk()
     app = customers(root)

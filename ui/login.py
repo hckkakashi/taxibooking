@@ -75,8 +75,8 @@ class LoginPage:
                     if record:
                         messagebox.showinfo("Taxi", "Login successful")
 
-                        superuser.customer=record
 
+                        superuser.customer=record
                         self.window.destroy()
                         new_window = Tk()
                         cust_dashboard.customers(new_window)
@@ -91,7 +91,7 @@ class LoginPage:
                         new_window.mainloop()
 
                     elif driver:
-
+                        superuser.Driver = driver
                         import driver_dash
                         messagebox.showinfo("Taxi", "Driver Login successful")
                         self.window.destroy()

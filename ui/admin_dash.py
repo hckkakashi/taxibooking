@@ -31,14 +31,14 @@ class Admindash:
                 cursor.execute(query)
                 mydata = cursor.fetchall()
 
-            mylist = [r for r , in mydata]
+            mylist = [r for r, in mydata]
         except mysql.connector.Error as err:
             print(f"Error: {err}")
             messagebox.showerror("Taxi", f"Error fetching bookings: {err}")
         self.options = tk.StringVar(window)
         self.options.set('Choose Driverid')  # default value
 
-        self.om1 = OptionMenu(window, self.options, *mylist)
+        self.om1 = OptionMenu(window, self.options,*mylist)
         self.om1.place(x=80, y=110)
 
         self.label_to = Label(window, text="Booking Id:", fg="white", bg="gray")
@@ -48,7 +48,9 @@ class Admindash:
         # self.booking_stat = Entry(window)
 
         self.button_book = Button(window, text="Assign",command=self.Driver_bookings)
-        # self.button_view = Button(window, text="View Bookings")
+
+        self.button_log = Button(window, text="Log Out",command=self.logout)
+        self.button_view = Button(window, text="View Booking History")
 
         self.var_stat = StringVar()
 
@@ -64,8 +66,8 @@ class Admindash:
         self.label_dob.place(x=10, y=170)
         # self.booking_stat.place(x=100, y=170)
         self.button_book.place(x=230, y=110)
-        # self.button_view.place(x=230, y=140)
-
+        self.button_view.place(x=230, y=140)
+        self.button_log.place(x=280, y=110)
         # Create a frame for the Treeview
         self.tree_frame = ttk.Frame(window)
         self.tree_frame.place(x=1, y=200)
@@ -104,11 +106,6 @@ class Admindash:
             values = self.tree_booking.item(selected_item, "values")
 
             if values:
-                # self.booking_id.insert(0, values[0])
-
-                # self.entry_from.delete(0, "end")
-                # self.entry_from.insert(0, values[0])self
-
                 self.entry_to.delete(0, "end")
                 self.entry_to.insert(0, values[0])
 
@@ -128,7 +125,12 @@ class Admindash:
             print(f"Error: {err}")
             messagebox.showerror("Taxi", f"Assigned Failure: {err}")
 
-
+    def logout(self):
+        from login import (LoginPage)
+        self.window.destroy()
+        new_window = Tk()
+        LoginPage(new_window)
+        new_window.mainloop()
 
 if __name__ == "__main__":
     root = tk.Tk()
