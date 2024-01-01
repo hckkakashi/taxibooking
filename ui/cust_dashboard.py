@@ -19,8 +19,7 @@ class customers:
         self.bookid = StringVar()
         self.booking_id=Entry(textvariable=self.bookid)
 
-        # Initialize database
-        # self.conn = sqlite3.connect('taxi_booking.db')
+ 
         self.lbl=Label(self.window, text="BOOK NOW", fg="white", bg="gray", font=("Times", 55 , "bold"))
         self.lbl.place(x=160,y=5)
 
