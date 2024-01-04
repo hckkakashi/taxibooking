@@ -22,14 +22,14 @@ class Driverdash:
         self.lbl.place(x=1,y=5,width=720)
 
         # Create GUI components
-        self.label_from = Label(window, text="Booking Id:", fg="white", bg="gray",font="Times",width=50)
-        self.entry_from = Entry(window)
+        self.label_from = Label(window, text="Booking Id:", fg="white", bg="gray",font="Times")
+        self.entry_from = Entry(window,width=10)
 
         self.label_to = Label(window, text="Booking Status:", fg="white", bg="gray",font="Times")
         self.var_stat = StringVar()
 
         self.booking_stat = OptionMenu(self.window, self.var_stat, "booked", "completed")
-        self.booking_stat.place(x=145, y=140)
+        self.booking_stat.place(x=135, y=140)
 
 
 
@@ -38,7 +38,7 @@ class Driverdash:
 
 
         self.label_from.place(x=10, y=110)
-        self.entry_from.place(x=110, y=110)
+        self.entry_from.place(x=100, y=110)
         self.label_to.place(x=10, y=140)
 
         self.button_log = Button(window, text="Log Out", command=self.logout)
@@ -88,7 +88,7 @@ class Driverdash:
             # Commit the transaction
             self._connection_.commit()
 
-            messagebox.showinfo("Taxi", "complete bookings")
+            messagebox.showinfo("Taxi", "Trip Completed")
         except mysql.connector.Error as err:
             print(f"Error: {err}")
             messagebox.showerror("Taxi", f"Update Failure: {err}")
@@ -133,6 +133,7 @@ class Driverdash:
         new_window = Tk()
         LoginPage(new_window)
         new_window.mainloop()
+
 
 if __name__ == "__main__":
     root = tk.Tk()

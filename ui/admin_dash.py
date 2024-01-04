@@ -50,7 +50,7 @@ class Admindash:
         self.button_book = Button(window, text="Assign",command=self.Driver_bookings)
 
         self.button_log = Button(window, text="Log Out",command=self.logout)
-        self.button_view = Button(window, text="View Booking History")
+        self.button_view = Button(window, text="View Booking History",command=self.history)
 
         self.var_stat = StringVar()
 
@@ -80,7 +80,7 @@ class Admindash:
         self.tree_booking.bind("<<TreeviewSelect>>", self.assign_driver)
         for col in column:
             self.tree_booking.heading(col, text=col, anchor="center")
-            self.tree_booking.column(col, anchor="center", width=100)
+            self.tree_booking.column(col, anchor="center", width=120)
 
         self.tree_booking.pack()
         try:
@@ -130,6 +130,12 @@ class Admindash:
         self.window.destroy()
         new_window = Tk()
         LoginPage(new_window)
+        new_window.mainloop()
+
+    def history(self):
+        from adminhist import (Adminhistory)
+        new_window = Tk()
+        Adminhistory(new_window)
         new_window.mainloop()
 
 if __name__ == "__main__":
